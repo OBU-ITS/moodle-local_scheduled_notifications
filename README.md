@@ -1,0 +1,2 @@
+# moodle-local_scheduled_notifications
+Scheduled Notifications
