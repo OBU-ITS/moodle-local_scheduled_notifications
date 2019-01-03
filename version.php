@@ -18,14 +18,14 @@
  *
  * @package    local_scheduled_notifications
  * @author     Peter Welham
- * @copyright  2017, Oxford Brookes University
+ * @copyright  2019, Oxford Brookes University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
  */
 
 $plugin->component = 'local_scheduled_notifications'; // Full name of the plugin (used for diagnostics): plugintype_pluginname
-$plugin->version  = 2017111100;   // The (date) version of this module + 2 extra digital for daily versions
+$plugin->version  = 2019010200;   // The (date) version of this module + 2 extra digital for daily versions
 $plugin->requires = 2014111003;   // Requires this Moodle version - at least 2.0
 $plugin->cron = 0;
-$plugin->release = 'v1.0.1';
+$plugin->release = 'v1.0.2';
 $plugin->maturity = MATURITY_STABLE;
