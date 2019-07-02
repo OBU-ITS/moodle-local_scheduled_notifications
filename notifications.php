@@ -18,26 +18,30 @@
  *
  * @package    local_scheduled_notifications
  * @author     Peter Welham
- * @copyright  2017, Oxford Brookes University
+ * @copyright  2019, Oxford Brookes University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
  */
 
 require_once('../../config.php');
-require_once('./db_update.php');
+require_once('./locallib.php');
 require_once('./notifications_form.php');
 
 require_login();
 $home = new moodle_url('/');
 if (is_siteadmin()) {
 	$owner_id = 0;
-} else if ($USER->lastname == '- Notifications') {
+} else if (is_authorised()) {
 	$owner_id = $USER->id;
 } else {
 	redirect($home);
 }
 
 $context = context_system::instance();
+if (!has_capability('local/obu_application:update', $context)) {
+	redirect($home);
+}
+
 $url = $home . 'local/scheduled_notifications/notifications.php';
 $add = $home . 'local/scheduled_notifications/notification.php';
 

@@ -20,10 +20,11 @@
  *
  * @package    local_scheduled_notifications
  * @author     Peter Welham
- * @copyright  2017, Oxford Brookes University
+ * @copyright  2019, Oxford Brookes University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+require_once($CFG->dirroot . '/local/scheduled_notifications/locallib.php');
 
 function local_scheduled_notifications_extend_navigation($navigation) {
     global $USER;
@@ -32,23 +33,13 @@ function local_scheduled_notifications_extend_navigation($navigation) {
 		return;
 	}
 	
-	if (!is_siteadmin() && ($USER->lastname != '- Notifications')) {
+	if (!is_siteadmin() && !is_authorised()) {
 		return;
 	}
 
-	// Find the 'notifications' node
-	$nodeParent = $navigation->find(get_string('notifications', 'local_scheduled_notifications'), navigation_node::TYPE_SYSTEM);
+	$nodeHome = $navigation->children->get('1')->parent;
+	$node = $nodeHome->add(get_string('scheduled_notifications', 'local_scheduled_notifications'), '/local/scheduled_notifications/notifications.php', navigation_node::TYPE_SYSTEM);
+	$node->showinflatnavigation = true;
 	
-	// If necessary, add the 'notifications' node to 'home'
-	if (!$nodeParent) {
-		$nodeHome = $navigation->children->get('1')->parent;
-		if ($nodeHome) {
-			$nodeParent = $nodeHome->add(get_string('notifications', 'local_scheduled_notifications'), null, navigation_node::TYPE_SYSTEM);
-		}
-	}
-
-	// Add the option to list, add or amend their notifications
-	if ($nodeParent) {
-		$node = $nodeParent->add(get_string('scheduled_notifications', 'local_scheduled_notifications'), '/local/scheduled_notifications/notifications.php');
-	}
+	return;	
 }

@@ -14,7 +14,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Scheduled notifications
+ * Scheduled Notifications - library functions
  *
  * @package    local_scheduled_notifications
  * @author     Peter Welham
@@ -22,10 +22,20 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
  */
+ 
+require_once($CFG->dirroot . '/local/scheduled_notifications/db_update.php');
 
-$plugin->component = 'local_scheduled_notifications'; // Full name of the plugin (used for diagnostics): plugintype_pluginname
-$plugin->version  = 2019060100;   // The (date) version of this module + 2 extra digital for daily versions
-$plugin->requires = 2014111003;   // Requires this Moodle version - at least 2.0
-$plugin->cron = 0;
-$plugin->release = 'v1.1.0';
-$plugin->maturity = MATURITY_STABLE;
+// Check if the user is authorised
+function is_authorised() {
+	global $USER;
+	
+	if (is_siteadmin()) {
+		return true;
+	}
+	
+	$is_authorised = has_notifications_role($USER->id, 5);
+	
+	return $is_authorised;
+}
+
+?>
