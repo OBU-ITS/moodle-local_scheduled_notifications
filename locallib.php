@@ -42,7 +42,6 @@ function local_scheduled_notifications_is_authorised() {
 
 function local_scheduled_notifications_get_template_data($notifications) : array {
     $data = [
-        'heading' => 'Scheduled notifications',
         'current' => array(),
         'future' => array(),
         'past' => array()

@@ -40,6 +40,7 @@ $string['scripting_prohibited'] = 'Scripting prohibited';
 $string['invalid_time'] = 'Invalid time';
 $string['general_edit_text'] = "Edit";
 
+$string['notifications_title'] = 'Scheduled notifications';
 $string['current_notifications_heading'] = 'Current notifications';
 $string['future_notifications_heading'] = 'Future notifications';
 $string['past_notifications_heading'] = 'Past notifications';

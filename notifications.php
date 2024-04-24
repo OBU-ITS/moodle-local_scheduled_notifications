@@ -62,10 +62,12 @@ else if ($mform_data = $mform->get_data()) {
 }
 
 echo $OUTPUT->header();
-
+echo $OUTPUT->render_from_template('local_scheduled_notifications/title', null);
+$mform->display();
 $notifications = local_scheduled_notifications_get_notifications($owner_id);
 $data = local_scheduled_notifications_get_template_data($notifications);
 echo $OUTPUT->render_from_template('local_scheduled_notifications/notification_summaries', $data);
 $mform->display();
+
 
 echo $OUTPUT->footer();
