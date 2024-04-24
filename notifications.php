@@ -31,7 +31,7 @@ require_login();
 $home = new moodle_url('/');
 if (is_siteadmin()) {
 	$owner_id = 0;
-} else if (is_authorised()) {
+} else if (local_scheduled_notifications_is_authorised()) {
 	$owner_id = $USER->id;
 } else {
 	redirect($home);
@@ -63,8 +63,8 @@ else if ($mform_data = $mform->get_data()) {
 
 echo $OUTPUT->header();
 
-$notifications = get_notifications($owner_id);
-$data = get_template_data($notifications);
+$notifications = local_scheduled_notifications_get_notifications($owner_id);
+$data = local_scheduled_notifications_get_template_data($notifications);
 echo $OUTPUT->render_from_template('local_scheduled_notifications/notification_summaries', $data);
 $mform->display();
 

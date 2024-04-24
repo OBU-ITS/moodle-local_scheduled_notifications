@@ -28,19 +28,19 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . '/local/scheduled_notifications/db_update.php');
 
 // Check if the user is authorised
-function is_authorised() {
+function local_scheduled_notifications_is_authorised() {
 	global $USER;
 
 	if (is_siteadmin()) {
 		return true;
 	}
 
-	$is_authorised = has_notifications_role($USER->id, 5);
+	$is_authorised = local_scheduled_notifications_has_notifications_role($USER->id, 5);
 
 	return $is_authorised;
 }
 
-function get_template_data($notifications) : array {
+function local_scheduled_notifications_get_template_data($notifications) : array {
     $data = [
         'heading' => 'Scheduled notifications',
         'current' => array(),

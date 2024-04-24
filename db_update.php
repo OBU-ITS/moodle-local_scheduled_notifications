@@ -26,15 +26,14 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-function get_notifications_course() {
+function local_scheduled_notifications_get_notifications_course() {
 	global $DB;
 
 	$course = $DB->get_record('course', array('idnumber' => 'SUBS_NOTIFICATIONS'), 'id', MUST_EXIST);
 	return $course->id;
 }
 
-// Check if the given user has the given role in the notifications course
-function has_notifications_role($user_id = 0, $role_id_1 = 0, $role_id_2 = 0, $role_id_3 = 0) {
+function local_scheduled_notifications_has_notifications_role($user_id = 0, $role_id_1 = 0, $role_id_2 = 0, $role_id_3 = 0) {
 	global $DB;
 
 	if (($user_id == 0) || ($role_id_1 == 0)) { // Both mandatory
@@ -61,11 +60,7 @@ function has_notifications_role($user_id = 0, $role_id_1 = 0, $role_id_2 = 0, $r
 	}
 }
 
-/**
- * A list of notifications of the given type
- */
-
-function get_notifications($owner_id = 0) {
+function local_scheduled_notifications_get_notifications($owner_id = 0) {
     global $DB;
 
     $conditions = array();
@@ -75,13 +70,13 @@ function get_notifications($owner_id = 0) {
 	return $DB->get_records('local_scheduled_notification', $conditions, 'owner_id, title', '*');
 }
 
-function read_notification($id) {
+function local_scheduled_notifications_read_notification($id) {
     global $DB;
 
 	return $DB->get_record('local_scheduled_notification', array('id' => $id), '*', MUST_EXIST);
 }
 
-function write_notification($id, $owner_id, $title, $text, $start_time, $stop_time) {
+function local_scheduled_notifications_write_notification($id, $owner_id, $title, $text, $start_time, $stop_time) {
     global $DB, $USER;
 
     $record = new stdClass();
@@ -111,7 +106,7 @@ function write_notification($id, $owner_id, $title, $text, $start_time, $stop_ti
 	return $id;
 }
 
-function delete_notification($id) {
+function local_scheduled_notifications_delete_notification($id) {
     global $DB;
 
 	return $DB->delete_records('local_scheduled_notification', array('id' => $id));
