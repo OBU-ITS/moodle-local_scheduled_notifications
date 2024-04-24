@@ -14,20 +14,31 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Scheduled notifications
- *
- * @package    local_scheduled_notifications
- * @author     Peter Welham
- * @copyright  2019, Oxford Brookes University
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
- */
+* Scheduled notifications - database upgrade
+*
+* @package    local_scheduled_notifications
+* @category   local
+* @author     Joe Souch
+* @copyright  2024, Oxford Brookes University
+* @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+*
+*/
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'local_scheduled_notifications'; // Full name of the plugin (used for diagnostics): plugintype_pluginname
-$plugin->version  = 2024042300;   // The (date) version of this module + 2 extra digital for daily versions
-$plugin->requires = 2014111003;   // Requires this Moodle version - at least 2.0
-$plugin->cron = 0;
-$plugin->release = 'v1.1.0';
-$plugin->maturity = MATURITY_STABLE;
+function xmldb_local_scheduled_notifications_install() {
+    global $CFG;
+
+    if(!$CFG->isdev) {
+        return;
+    }
+
+    // TODO : Create course (Idnumber: 'SUBS_NOTIFICATIONS')
+
+    // TODO : Create user (Name: 'Test Schedule notifications user')
+
+    // TODO : Grant user capability (Capability: 'local/scheduled_notifications:update')
+
+    // TODO : Enrol user on course (Method: Manual)
+}
+

@@ -38,7 +38,7 @@ if (is_siteadmin()) {
 }
 
 $context = context_system::instance();
-if (!has_capability('local/obu_application:update', $context)) {
+if (!has_capability('local/scheduled_notifications:update', $context)) {
 	redirect($home);
 }
 
@@ -89,7 +89,7 @@ $mform = new notification_form(null, $parameters);
 
 if ($mform->is_cancelled()) {
     redirect($list);
-} 
+}
 
 if ($mform_data = $mform->get_data()) {
 	if ($mform_data->submitbutton == get_string('save_notification', 'local_scheduled_notifications')) {
@@ -98,12 +98,12 @@ if ($mform_data = $mform->get_data()) {
 		delete_notification($id);
     }
 	redirect($list);
-}	
+}
 
 echo $OUTPUT->header();
 
 if ($message) {
-    notice($message, $url);    
+    notice($message, $url);
 }
 else {
     $mform->display();

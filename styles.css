@@ -1,0 +1,37 @@
+.notification-summary {
+    display: block;
+    margin: 0.5rem -1rem;
+    padding: 0.5rem 0;
+}
+.notification-summary h4 {
+    padding: 0 1rem;
+    color: #d10373;
+}
+.notification-summary p {
+    padding: 0 1rem;
+    color: #000;
+}
+.notification-summary p.notification-summary_dates {
+    color: #d10373;
+    font-size: calc(1rem + 0.1vw);
+    margin-bottom: 0.5rem;
+}
+.notification-summary p.notification-summary_info strong {
+    width: 85px;
+    display: inline-block;
+    margin-right: 1rem;
+}
+
+
+.notification-summary:hover {
+    text-decoration: none;
+    background-color: #d10373;
+}
+.notification-summary:hover h4 {
+    padding: 0 1rem;
+    background-color: #d10373;
+    color: #fff;
+}
+.notification-summary:hover p {
+    color: #fff;
+}

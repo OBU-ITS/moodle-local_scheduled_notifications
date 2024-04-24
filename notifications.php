@@ -38,7 +38,7 @@ if (is_siteadmin()) {
 }
 
 $context = context_system::instance();
-if (!has_capability('local/obu_application:update', $context)) {
+if (!has_capability('local/scheduled_notifications:update', $context)) {
 	redirect($home);
 }
 
@@ -48,33 +48,24 @@ $add = $home . 'local/scheduled_notifications/notification.php';
 $PAGE->set_pagelayout('standard');
 $PAGE->set_url($url);
 $PAGE->set_context($context);
-$PAGE->set_heading($SITE->fullname);
 $PAGE->set_title(get_string('notifications', 'local_scheduled_notifications'));
 
-$message = '';
-
-$parameters = [
-	'notifications' => get_notifications($owner_id)
-];
-
-$mform = new notifications_form(null, $parameters);
+$mform = new notifications_form();
 
 if ($mform->is_cancelled()) {
     redirect($home);
-} 
+}
 else if ($mform_data = $mform->get_data()) {
 	if ($mform_data->submitbutton == get_string('add_notification', 'local_scheduled_notifications')) {
 		redirect($add);
     }
-}	
+}
 
 echo $OUTPUT->header();
 
-if ($message) {
-    notice($message, $url);    
-}
-else {
-    $mform->display();
-}
+$notifications = get_notifications($owner_id);
+$data = get_template_data($notifications);
+echo $OUTPUT->render_from_template('local_scheduled_notifications/notification_summaries', $data);
+$mform->display();
 
 echo $OUTPUT->footer();

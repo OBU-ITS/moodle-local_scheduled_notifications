@@ -24,22 +24,24 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die();
+
 require_once($CFG->dirroot . '/local/scheduled_notifications/locallib.php');
 
-function local_scheduled_notifications_extend_navigation($navigation) {
-    global $USER;
-	
-	if (!isloggedin() || isguestuser()) {
-		return;
-	}
-	
-	if (!is_siteadmin() && !is_authorised()) {
-		return;
-	}
-
-	$nodeHome = $navigation->children->get('1')->parent;
-	$node = $nodeHome->add(get_string('scheduled_notifications', 'local_scheduled_notifications'), '/local/scheduled_notifications/notifications.php', navigation_node::TYPE_SYSTEM);
-	$node->showinflatnavigation = true;
-	
-	return;	
-}
+//function local_scheduled_notifications_extend_navigation($navigation) {
+//    global $USER;
+//
+//	if (!isloggedin() || isguestuser()) {
+//		return;
+//	}
+//
+//	if (!is_siteadmin() && !is_authorised()) {
+//		return;
+//	}
+//
+//	$nodeHome = $navigation->children->get('1')->parent;
+//	$node = $nodeHome->add(get_string('scheduled_notifications', 'local_scheduled_notifications'), '/local/scheduled_notifications/notifications.php', navigation_node::TYPE_SYSTEM);
+//	$node->showinflatnavigation = true;
+//
+//	return;
+//}

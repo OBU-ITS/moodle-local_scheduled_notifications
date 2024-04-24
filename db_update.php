@@ -24,9 +24,11 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die();
+
 function get_notifications_course() {
 	global $DB;
-	
+
 	$course = $DB->get_record('course', array('idnumber' => 'SUBS_NOTIFICATIONS'), 'id', MUST_EXIST);
 	return $course->id;
 }
@@ -34,11 +36,11 @@ function get_notifications_course() {
 // Check if the given user has the given role in the notifications course
 function has_notifications_role($user_id = 0, $role_id_1 = 0, $role_id_2 = 0, $role_id_3 = 0) {
 	global $DB;
-	
+
 	if (($user_id == 0) || ($role_id_1 == 0)) { // Both mandatory
 		return false;
 	}
-	
+
 	$sql = 'SELECT ue.id'
 		. ' FROM {user_enrolments} ue'
 		. ' JOIN {enrol} e ON e.id = ue.enrolid'
@@ -70,7 +72,7 @@ function get_notifications($owner_id = 0) {
 	if ($owner_id != 0) {
 		$conditions['owner_id'] = $owner_id;
 	}
-	return $DB->get_records('local_scheduled_notification', $conditions, 'owner_id', '*');
+	return $DB->get_records('local_scheduled_notification', $conditions, 'owner_id, title', '*');
 }
 
 function read_notification($id) {
@@ -84,12 +86,20 @@ function write_notification($id, $owner_id, $title, $text, $start_time, $stop_ti
 
     $record = new stdClass();
 	$record->id = $id;
-	$record->owner_id = $owner_id;
+    if($id == 0) {
+        $owner = $owner_id == 0
+            ? $USER->id
+            : $owner_id;
+        $record->owner_id = $owner;
+    }
+    else {
+        $record->updater_id = $USER->id;
+    }
     $record->title = $title;
     $record->text = $text;
 	$record->start_time = $start_time;
 	$record->stop_time = $stop_time;
-	$record->updater_id = $USER->id;
+
 	$record->update_time = time();
 
 	if ($id == 0) {
@@ -97,7 +107,7 @@ function write_notification($id, $owner_id, $title, $text, $start_time, $stop_ti
 	} else {
 		$DB->update_record('local_scheduled_notification', $record);
 	}
-	
+
 	return $id;
 }
 
