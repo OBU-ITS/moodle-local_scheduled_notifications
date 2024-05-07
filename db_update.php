@@ -67,7 +67,7 @@ function local_scheduled_notifications_get_notifications($owner_id = 0) {
 	if ($owner_id != 0) {
 		$conditions['owner_id'] = $owner_id;
 	}
-	return $DB->get_records('local_scheduled_notification', $conditions, 'title', '*');
+	return $DB->get_records('local_scheduled_notification', $conditions, 'start_time desc', '*');
 }
 
 function local_scheduled_notifications_read_notification($id) {

@@ -29,5 +29,5 @@ $plugin->component = 'local_scheduled_notifications'; // Full name of the plugin
 $plugin->version  = 2024042300;   // The (date) version of this module + 2 extra digital for daily versions
 $plugin->requires = 2014111003;   // Requires this Moodle version - at least 2.0
 $plugin->cron = 0;
-$plugin->release = 'v1.1.0';
+$plugin->release = '1.2.0';
 $plugin->maturity = MATURITY_STABLE;
