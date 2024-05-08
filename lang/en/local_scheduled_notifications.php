@@ -38,3 +38,13 @@ $string['start_time'] = 'Start time';
 $string['stop_time'] = 'Stop time';
 $string['scripting_prohibited'] = 'Scripting prohibited';
 $string['invalid_time'] = 'Invalid time';
+$string['general_edit_text'] = "Edit";
+
+$string['notifications_title'] = 'Scheduled notifications';
+$string['current_notifications_heading'] = 'Current notifications';
+$string['future_notifications_heading'] = 'Future notifications';
+$string['past_notifications_heading'] = 'Past notifications';
+$string['created_by_text'] = 'Created By';
+$string['created_on_text'] = 'Created On';
+$string['updated_by_text'] = 'Update By';
+$string['updated_on_text'] = 'Update On';

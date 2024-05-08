@@ -31,14 +31,14 @@ require_login();
 $home = new moodle_url('/');
 if (is_siteadmin()) {
 	$owner_id = 0;
-} else if (is_authorised()) {
+} else if (local_scheduled_notifications_is_authorised()) {
 	$owner_id = $USER->id;
 } else {
 	redirect($home);
 }
 
 $context = context_system::instance();
-if (!has_capability('local/obu_application:update', $context)) {
+if (!has_capability('local/scheduled_notifications:update', $context)) {
 	redirect($home);
 }
 
@@ -55,7 +55,7 @@ $stop_datetime = new DateTime;
 if (isset($_REQUEST['id'])) {
 	$id = $_REQUEST['id'];
 	if ($id != 0) {
-		$notification = read_notification($id);
+		$notification = local_scheduled_notifications_read_notification($id);
 		if (($owner_id != 0) && ($owner_id != $notification->owner_id)) {
 			redirect($home);
 		}
@@ -89,21 +89,21 @@ $mform = new notification_form(null, $parameters);
 
 if ($mform->is_cancelled()) {
     redirect($list);
-} 
+}
 
 if ($mform_data = $mform->get_data()) {
 	if ($mform_data->submitbutton == get_string('save_notification', 'local_scheduled_notifications')) {
-		write_notification($mform_data->id, $owner_id, $mform_data->title, $mform_data->text['text'], $mform_data->start_time, $mform_data->stop_time);
+        local_scheduled_notifications_write_notification($mform_data->id, $owner_id, $mform_data->title, $mform_data->text['text'], $mform_data->start_time, $mform_data->stop_time);
 	} else if (($mform_data->submitbutton == get_string('delete_notification', 'local_scheduled_notifications')) && ($id != 0)) {
-		delete_notification($id);
+        local_scheduled_notifications_delete_notification($id);
     }
 	redirect($list);
-}	
+}
 
 echo $OUTPUT->header();
 
 if ($message) {
-    notice($message, $url);    
+    notice($message, $url);
 }
 else {
     $mform->display();
