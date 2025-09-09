@@ -75,6 +75,10 @@ function local_scheduled_notifications_get_template_data($notifications) : array
         }
     }
 
+    usort($data['past'], function($a, $b) {
+        return $b['to'] <=> $a['to'];
+    });
+
     $data['hascurrent'] = count($data['current']) > 0;
     $data['hasfuture'] = count($data['future']) > 0;
     $data['haspast'] = count($data['past']) > 0;
